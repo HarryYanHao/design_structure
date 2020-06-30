@@ -43,7 +43,7 @@ Class Queue{
 	 * @return mixed
 	 */
 	public function current(){
-		return $this->isEmpty()? -1 : $this->queue[$this->next];
+		return $this->isEmpty()? null : $this->queue[$this->next];
 	}
 
 	/**
