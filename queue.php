@@ -1,89 +1,38 @@
 <?php
 Class Queue{
-	protected $front;
-	protected $rear;
-	protected $queue;
-	protected $length;
-	protected $next;
-
 	/**
-	 * Queue construct.
-	 *
-	 * @param  int   $length
-	 */
-	public function __construct($length){
-		$this->length = (int)$length;
+     * Initialize your data structure here. Set the size of the queue to be k.
+     * @param Integer $k
+     */
+    function __construct($k) {
+        $this->length = (int)$k;
 		$this->queue = [];
 		$this->front = 0;
 		$this->rear = 0;
 		$this->next = 0;
-	}
-
-	/**
-	 * Determine whether the queue is empty
-	 *
-	 * @return boolean
-	 */
-	public function isEmpty(){
-		return $this->front == $this->rear;
-	}
-
-	/**
-	 * Determine whether the queue is full
-	 *
-	 * @return boolean
-	 */
-	public function isFull(){
-		return $this->rear - $this->front == $this->length;
-	}
-
-	/**
-	 * get current queue value
-	 *
-	 * @return mixed
-	 */
-	public function current(){
-		return $this->isEmpty()? null : $this->queue[$this->next];
-	}
-
-	/**
-	 * get next queue value
-	 *
-	 * @return mixed
-	 */
-	public function next(){
-		$this->next ++ ;
-		if(!isset($this->queue[$this->next])){
-			return null;
-		}
-		return $this->queue[$this->next];
-	}
-
-	/**
-	 * set queue value
-	 *
-	 * @param  mixed   $value
-	 *
-	 * @return mixed
-	 */
-	public function push($value){
-		if($this->isFull()){
+    }
+  
+    /**
+     * Insert an element into the circular queue. Return true if the operation is successful.
+     * @param Integer $value
+     * @return Boolean
+     */
+    function enQueue($value) {
+        if($this->isFull()){
 			return false;
 		}
 		$this->queue[$this->rear] = $value;
 		$this->rear++;
 		return true;
-	}
-
-	/**
-	 * get queue value and del from queue
-	 *
-	 *
-	 * @return mixed
-	 */
-	public function pop(){
-		if($this->isEmpty()){
-			return null;
+    }
+  
+    /**
+     * Delete an element from the circular queue. Return true if the operation is successful.
+     * @return Boolean
+     */
+    function deQueue() {
+        if($this->isEmpty()){
+			return false;
 		}
 		$value = $this->queue[$this->front];
 		$this->rear-- ;
@@ -92,17 +41,39 @@ Class Queue{
 		}
 		unset($this->queue[$this->rear]);
 		return $value;
-	}
-
-	/**
-	 * get queue list as array
-	 *
-	 *
-	 * @return array
-	 */
-	public function getQueue(){
-		return $this->queue;
-	}
+    }
+  
+    /**
+     * Get the front item from the queue.
+     * @return Integer
+     */
+    function Front() {
+        return isset($this->queue[$this->front])?$this->queue[$this->front]:-1;
+    }
+  
+    /**
+     * Get the last item from the queue.
+     * @return Integer
+     */
+    function Rear() {
+        return isset($this->queue[$this->rear - 1])?$this->queue[$this->rear - 1]:-1;
+    }
+  
+    /**
+     * Checks whether the circular queue is empty or not.
+     * @return Boolean
+     */
+    function isEmpty() {
+        return $this->front == $this->rear;
+    }
+  
+    /**
+     * Checks whether the circular queue is full or not.
+     * @return Boolean
+     */
+    function isFull() {
+        return $this->rear - $this->front == $this->length;
+    }
 
 
 
